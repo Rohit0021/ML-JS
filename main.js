@@ -17,7 +17,7 @@ const counts = nn.train(data, 25_000);
 // console.table(counts);
 
 const test = async () => {
-  let text = "Waiting for trainning to finish...";
+  let text = "Waiting for test to finish...";
   showHeadline(text);
   console.log(text);
   let str = "";
@@ -29,7 +29,7 @@ const test = async () => {
   }
   console.log(str);
   showOutput(str);
-  text = "Trainning completed !";
+  text = "Test completed !";
   showHeadline(text);
   console.log(text);
 };
