@@ -1,4 +1,4 @@
-import NeuralNetwork from "./NeuralNetwork.js";
+import NeuralNetwork from "../../../NeuralNetwork.js";
 
 const data = [
   { inputs: [1, 1], outputs: [0] },
@@ -13,6 +13,7 @@ const nn = new NeuralNetwork(
   [3, 2] // Num of neurons in each respective hidden layer
 );
 
+showHeadline("Trainning...");
 const counts = nn.train(data, 25_000);
 // console.table(counts);
 
@@ -23,7 +24,7 @@ const test = async () => {
   let str = "";
   for (const d of data) {
     const { inputs, outputs } = d;
-    const ans = nn.predict(inputs).map(Math.round);
+    const ans = nn.predict(inputs);
     const res = !outputs.some((correct, i) => ans[i] !== correct);
     str += "\t" + inputs.join(", ") + " -> " + ans.join(", ") + "\t" + (res ? "[✓]" : "[×]") + "\n";
   }

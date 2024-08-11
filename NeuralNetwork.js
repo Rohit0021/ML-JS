@@ -9,6 +9,9 @@ export default class NeuralNetwork {
   };
 
   constructor(numOfInputs, numOfOutputs, hinddenLayers) {
+    this.numOfInputs = numOfInputs;
+    this.numOfInputs = numOfOutputs;
+    this.numOfInputs = hinddenLayers;
     // Initialize the layers
     for (const i in hinddenLayers) {
       const numOfNeurons = hinddenLayers[i];
@@ -69,8 +72,12 @@ export default class NeuralNetwork {
   }
 
   predict(inputs) {
-    const outputs = this.feed(inputs);
-    return outputs.slice(-1)[0];
+    // All predictions by each layer
+    const predictions = this.feed(inputs);
+    // Prediction of last layer (output layer)
+    const [outputs] = predictions.slice(-1);
+    // Rounding number for just 0 or 1
+    return outputs.map(Math.round);
   }
 
   train(data, numOfTrainningSets) {
@@ -140,5 +147,36 @@ export default class NeuralNetwork {
         this.learningRate -= lr / 4;
     }
     return trainningCount;
+  }
+
+  // Functions for neuro evolution
+  copy() {
+    const nn = new NeuralNetwork(
+      this.numOfInputs,
+      this.numOfOutputs,
+      this.hinddenLayers
+    );
+    // Copying the weights and biases
+    for (const l in this.layers) {
+      const { weights, biases } = layer[l];
+      for (const i in weights)
+        for (const j in weights[i])
+          nn.layers[l].weights[i][j] = weights[i][j];
+      for (const i in biases)
+        nn.layers[l].biases[i] = biases[i];
+    }
+    return nn;
+  }
+
+  mutate(fn) {
+    // Mutating every weight and bias using given function (fn)
+    for (const l in this.layers) {
+      const { weights, biases } = layer[l];
+      for (const i in weights)
+        for (const j in weights[i])
+          weights[i][j] = fn(weights[i][j]);
+      for (const i in biases)
+        biases[i] = fn(biases[i]);
+    }
   }
 }
