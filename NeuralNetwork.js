@@ -47,6 +47,10 @@ export default class NeuralNetwork {
     }
   }
 
+  setLearningRate(rate) {
+    this.minLearning = rate;
+  }
+
   feed(inputs) {
     const outputs = [];
     for (const layer of this.layers) {
