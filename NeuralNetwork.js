@@ -10,8 +10,8 @@ export default class NeuralNetwork {
 
   constructor(numOfInputs, numOfOutputs, hinddenLayers) {
     this.numOfInputs = numOfInputs;
-    this.numOfInputs = numOfOutputs;
-    this.numOfInputs = hinddenLayers;
+    this.numOfOutputs = numOfOutputs;
+    this.hinddenLayers = hinddenLayers;
     // Initialize the layers
     for (const i in hinddenLayers) {
       const numOfNeurons = hinddenLayers[i];
@@ -162,20 +162,21 @@ export default class NeuralNetwork {
     );
     // Copying the weights and biases
     for (const l in this.layers) {
-      const { weights, biases } = layer[l];
+      const { weights, biases } = this.layers[l];
       for (const i in weights)
         for (const j in weights[i])
           nn.layers[l].weights[i][j] = weights[i][j];
       for (const i in biases)
         nn.layers[l].biases[i] = biases[i];
     }
+    nn.learningRate = this.learningRate;
     return nn;
   }
 
   mutate(fn) {
     // Mutating every weight and bias using given function (fn)
     for (const l in this.layers) {
-      const { weights, biases } = layer[l];
+      const { weights, biases } = this.layers[l];
       for (const i in weights)
         for (const j in weights[i])
           weights[i][j] = fn(weights[i][j]);

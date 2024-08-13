@@ -1,6 +1,10 @@
 # ML-JS
 Machine learning in javascript without any external machine learning library just maths.
 
+## Examples
+- XOR (Trained using backpropogration)
+- Flappy bird (Trained using neuro evolution)
+
 ### NOTE
 - The prediction might be wrong because of incorrect weights and biases.
 - Weights and biases can be fixed by trainning more.
